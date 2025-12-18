@@ -48,4 +48,11 @@ public class EnrollmentService {
         return enrollments.stream().map(Enrollment::getCourse).toList();
     }
 
+    public List<Student>getStudentsOfCourse(Long courseId){
+        Course course = courseRepository.findById(courseId).orElseThrow(()->new CourseNotFoundException("Course not found"));
+        List<Enrollment>students = enrollmentRepository.findByCourse(course);
+        return students.stream().map(Enrollment::getStudent).toList();
+
+    }
+
 }
