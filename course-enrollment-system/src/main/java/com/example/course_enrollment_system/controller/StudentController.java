@@ -1,7 +1,7 @@
 package com.example.course_enrollment_system.controller;
 
-import com.example.course_enrollment_system.entity.Student;
-import com.example.course_enrollment_system.repository.StudentRepository;
+import com.example.course_enrollment_system.dto.StudentRequest;
+import com.example.course_enrollment_system.dto.StudentResponse;
 import com.example.course_enrollment_system.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,17 +19,17 @@ public class StudentController {
 
 
     @PostMapping
-    public Student addStudent(@RequestBody Student student){
-        return studentService.addStudent(student);
+    public StudentResponse addStudent(@RequestBody StudentRequest studentRequest){
+        return studentService.addStudent(studentRequest);
     }
 
     @GetMapping
-    public List<Student> getAllStudents(){
+    public List<StudentResponse> getAllStudents(){
         return studentService.getAllStudents();
     }
 
     @GetMapping("/{id}")
-    public  Student getStudentById(@PathVariable Long id){
+    public  StudentResponse getStudentById(@PathVariable Long id){
         return studentService.getStudentById(id);
     }
 

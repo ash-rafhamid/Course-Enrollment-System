@@ -1,5 +1,8 @@
 package com.example.course_enrollment_system.service;
 
+import com.example.course_enrollment_system.dto.CourseResponse;
+import com.example.course_enrollment_system.dto.EnrollmentResponse;
+import com.example.course_enrollment_system.dto.StudentResponse;
 import com.example.course_enrollment_system.entity.Course;
 import com.example.course_enrollment_system.entity.Enrollment;
 import com.example.course_enrollment_system.entity.Student;
@@ -27,7 +30,7 @@ public class EnrollmentService {
         this.courseRepository = courseRepository;
     }
     
-    public Enrollment enrollment(Long studentId, Long courseId){
+    public EnrollmentResponse enrollment(Long studentId, Long courseId){
         Student student = studentRepository.findById(studentId).orElseThrow(()-> new StudentNotFoundException("Student not found"));
         Course course = courseRepository.findById(courseId).orElseThrow(()-> new CourseNotFoundException("Course not found"));
         Optional<Enrollment>exisiting = enrollmentRepository.findByStudentAndCourse(student,course);
@@ -38,20 +41,27 @@ public class EnrollmentService {
         Enrollment enrollment = new Enrollment();
         enrollment.setStudent(student);
         enrollment.setCourse(course);
-        return enrollmentRepository.save(enrollment);
+        Enrollment saved = enrollmentRepository.save(enrollment);
+        return new EnrollmentResponse(saved.getId(),
+                                    saved.getStudent().getId(),
+                                    saved.getCourse().getId(),
+                                    saved.getDate());
 
     }
 
-    public List<Course> getCourseByStudent(Long studentId){
+    public List<CourseResponse> getCourseByStudent(Long studentId){
         Student student = studentRepository.findById(studentId).orElseThrow(()-> new StudentNotFoundException("Student not found"));
         List<Enrollment>enrollments = enrollmentRepository.findByStudent(student);
-        return enrollments.stream().map(Enrollment::getCourse).toList();
+//        return enrollments.stream().map(Enrollment::getCourse).toList();
+        return enrollments.stream().map(e->
+                new CourseResponse(e.getCourse().getId(),e.getCourse().getTitle(),e.getCourse().getDescription())).toList();
     }
 
-    public List<Student>getStudentsOfCourse(Long courseId){
+    public List<StudentResponse>getStudentsOfCourse(Long courseId){
         Course course = courseRepository.findById(courseId).orElseThrow(()->new CourseNotFoundException("Course not found"));
         List<Enrollment>students = enrollmentRepository.findByCourse(course);
-        return students.stream().map(Enrollment::getStudent).toList();
+        return students.stream().map(e->
+                new StudentResponse(e.getStudent().getId(),e.getStudent().getName(),e.getStudent().getEmail())).toList();
 
     }
 

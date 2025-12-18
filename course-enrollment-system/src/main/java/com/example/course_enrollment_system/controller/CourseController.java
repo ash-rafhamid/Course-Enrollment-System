@@ -1,5 +1,7 @@
 package com.example.course_enrollment_system.controller;
 
+import com.example.course_enrollment_system.dto.CourseRequest;
+import com.example.course_enrollment_system.dto.CourseResponse;
 import com.example.course_enrollment_system.entity.Course;
 import com.example.course_enrollment_system.repository.CourseRepository;
 import com.example.course_enrollment_system.service.CourseService;
@@ -18,18 +20,18 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<Course> addCourse(@RequestBody Course course){
-        Course saved = courseService.addCourse(course);
+    public ResponseEntity<CourseResponse> addCourse(@RequestBody CourseRequest courseRequest){
+        CourseResponse saved = courseService.addCourse(courseRequest);
         return ResponseEntity.status(201).body(saved);
     }
 
     @GetMapping
-    public List<Course> getAllCourses(){
+    public List<CourseResponse> getAllCourses(){
         return courseService.getAllCourses();
     }
 
     @PostMapping("/{id}")
-    public Course getCourseById(@PathVariable Long id){
+    public CourseResponse getCourseById(@PathVariable Long id){
         return courseService.getCourseById(id);
     }
 
