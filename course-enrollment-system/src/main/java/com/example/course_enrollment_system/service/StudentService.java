@@ -19,8 +19,8 @@ public class StudentService {
 
     public StudentResponse addStudent(StudentRequest studentRequest){
         Student student = new Student();
-        student.setName(studentRequest.getname());
-        student.setEmail(studentRequest.getemail());
+        student.setName(studentRequest.getName());
+        student.setEmail(studentRequest.getEmail());
         Student saved = studentRepository.save(student);
         return new StudentResponse(saved.getId(),saved.getName(),saved.getEmail());
     }
