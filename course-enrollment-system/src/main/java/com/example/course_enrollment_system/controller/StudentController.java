@@ -3,12 +3,14 @@ package com.example.course_enrollment_system.controller;
 import com.example.course_enrollment_system.dto.StudentRequest;
 import com.example.course_enrollment_system.dto.StudentResponse;
 import com.example.course_enrollment_system.service.StudentService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/students")
+@Tag(name = "Student API",description = "API for managing students")
 public class StudentController {
 
     private final StudentService studentService;

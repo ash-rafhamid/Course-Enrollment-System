@@ -5,6 +5,8 @@ import com.example.course_enrollment_system.dto.CourseResponse;
 import com.example.course_enrollment_system.entity.Course;
 import com.example.course_enrollment_system.repository.CourseRepository;
 import com.example.course_enrollment_system.service.CourseService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jdk.jfr.Description;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/courses")
+@Tag(name = "Course API", description = "API for managing courses")
 public class CourseController {
     private CourseService courseService;
 

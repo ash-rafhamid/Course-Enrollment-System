@@ -8,12 +8,14 @@ import com.example.course_enrollment_system.entity.Course;
 import com.example.course_enrollment_system.entity.Enrollment;
 import com.example.course_enrollment_system.entity.Student;
 import com.example.course_enrollment_system.service.EnrollmentService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/enrollments")
+@Tag(name="Enrollment Api",description = "API for managing enrollments")
 public class EnrollmentController {
     private final EnrollmentService enrollmentService;
 
